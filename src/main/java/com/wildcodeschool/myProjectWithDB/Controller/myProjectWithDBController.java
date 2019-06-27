@@ -24,7 +24,7 @@ public class myProjectWithDBController {
     private final static String DB_USER = "root";
     private final static String DB_PASSWORD = "password";
 
-    @GetMapping("/api/wizards")
+    @GetMapping("/api/school")
     public List<Wizard> getWizards(@RequestParam(defaultValue = "%") String country) {
         try(
             Connection connection = DriverManager.getConnection(
@@ -39,18 +39,18 @@ public class myProjectWithDBController {
             try(
                 ResultSet resulSet = statement.executeQuery();
             ) {
-                List<Wizard> wizards = new ArrayList<Wizard>();
+                List<Wizard> school = new ArrayList<Wizard>();
     
                 while(resulSet.next()){
                     int id = resulSet.getInt("id");
                     String name = resulSet.getString("name");
                     int capacity = resulSet.getInt("capacity");
                     String Country = resulSet.getString("country");
-                    wizards.add(new Wizard(id, name, capacity, Country));
+                    school.add(new Wizard(id, name, capacity, Country));
                 }
     
     
-                return wizards;
+                return school;
             }
         }
         catch (SQLException e) {
