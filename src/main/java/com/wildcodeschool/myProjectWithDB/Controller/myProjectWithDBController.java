@@ -25,7 +25,7 @@ public class myProjectWithDBController {
     private final static String DB_PASSWORD = "password";
 
     @GetMapping("/api/school")
-    public List<Wizard> getWizards(@RequestParam(defaultValue = "%") String country) {
+    public List<School> getSchools(@RequestParam(defaultValue = "%") String country) {
         try(
             Connection connection = DriverManager.getConnection(
                 DB_URL, DB_USER, DB_PASSWORD
@@ -39,14 +39,14 @@ public class myProjectWithDBController {
             try(
                 ResultSet resulSet = statement.executeQuery();
             ) {
-                List<Wizard> school = new ArrayList<Wizard>();
+                List<School> school = new ArrayList<School>();
     
                 while(resulSet.next()){
                     int id = resulSet.getInt("id");
                     String name = resulSet.getString("name");
                     int capacity = resulSet.getInt("capacity");
                     String Country = resulSet.getString("country");
-                    school.add(new Wizard(id, name, capacity, Country));
+                    school.add(new School(id, name, capacity, Country));
                 }
     
     
@@ -60,14 +60,14 @@ public class myProjectWithDBController {
         }
     }
            
-    class Wizard {
+    class School {
 
         private int id;
         private String name;
         private String country;
         private int capacity;
 
-        public Wizard(int id, String name, int capacity, String country) {
+        public School(int id, String name, int capacity, String country) {
             this.id = id;
             this.name = name;
             this.capacity = capacity;
